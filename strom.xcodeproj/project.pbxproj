@@ -1,0 +1,395 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 55;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		D95B14E32BEA082A002178AF /* DummyBMSController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D95B14E22BEA082A002178AF /* DummyBMSController.swift */; };
+		D99B04772BB1A3A7007160B8 /* stromApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D99B04762BB1A3A7007160B8 /* stromApp.swift */; };
+		D99B04792BB1A3A7007160B8 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D99B04782BB1A3A7007160B8 /* ContentView.swift */; };
+		D99B047B2BB1A3A9007160B8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D99B047A2BB1A3A9007160B8 /* Assets.xcassets */; };
+		D99B23052BD65AAB005C4D0E /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = D99B23042BD65AAB005C4D0E /* Model.swift */; };
+		D99C36602BC5B24C005DF07A /* BMSController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D99C365F2BC5B24C005DF07A /* BMSController.swift */; };
+		D9A880962BDCFD9300E7F875 /* DashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A880952BDCFD9300E7F875 /* DashView.swift */; };
+		D9E47FA82BB95DC2004315DA /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9E47FA72BB95DC2004315DA /* SettingsView.swift */; };
+		D9E47FAC2BBC58F2004315DA /* InfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9E47FAB2BBC58F2004315DA /* InfoView.swift */; };
+		D9E47FAE2BBC6897004315DA /* BluetoothView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9E47FAD2BBC6897004315DA /* BluetoothView.swift */; };
+		D9E47FB02BBC938C004315DA /* BLEController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9E47FAF2BBC938C004315DA /* BLEController.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		D95B14E22BEA082A002178AF /* DummyBMSController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DummyBMSController.swift; sourceTree = "<group>"; };
+		D9930CF82BB1B7FF0053E5C7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		D99B04732BB1A3A7007160B8 /* strom.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = strom.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		D99B04762BB1A3A7007160B8 /* stromApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = stromApp.swift; sourceTree = "<group>"; };
+		D99B04782BB1A3A7007160B8 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		D99B047A2BB1A3A9007160B8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		D99B23042BD65AAB005C4D0E /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
+		D99C365F2BC5B24C005DF07A /* BMSController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BMSController.swift; sourceTree = "<group>"; };
+		D9A880952BDCFD9300E7F875 /* DashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashView.swift; sourceTree = "<group>"; };
+		D9E47FA72BB95DC2004315DA /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		D9E47FAB2BBC58F2004315DA /* InfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoView.swift; sourceTree = "<group>"; };
+		D9E47FAD2BBC6897004315DA /* BluetoothView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothView.swift; sourceTree = "<group>"; };
+		D9E47FAF2BBC938C004315DA /* BLEController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BLEController.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		D99B04702BB1A3A7007160B8 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		D99B046A2BB1A3A7007160B8 = {
+			isa = PBXGroup;
+			children = (
+				D99B04752BB1A3A7007160B8 /* strom */,
+				D99B04742BB1A3A7007160B8 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		D99B04742BB1A3A7007160B8 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D99B04732BB1A3A7007160B8 /* strom.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		D99B04752BB1A3A7007160B8 /* strom */ = {
+			isa = PBXGroup;
+			children = (
+				D9930CF82BB1B7FF0053E5C7 /* Info.plist */,
+				D99B04762BB1A3A7007160B8 /* stromApp.swift */,
+				D9E47FAF2BBC938C004315DA /* BLEController.swift */,
+				D99C365F2BC5B24C005DF07A /* BMSController.swift */,
+				D95B14E22BEA082A002178AF /* DummyBMSController.swift */,
+				D99B23042BD65AAB005C4D0E /* Model.swift */,
+				D9A8809C2BE2304300E7F875 /* Views */,
+				D99B047A2BB1A3A9007160B8 /* Assets.xcassets */,
+			);
+			path = strom;
+			sourceTree = "<group>";
+		};
+		D9A8809C2BE2304300E7F875 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				D99B04782BB1A3A7007160B8 /* ContentView.swift */,
+				D9E47FAD2BBC6897004315DA /* BluetoothView.swift */,
+				D9E47FAB2BBC58F2004315DA /* InfoView.swift */,
+				D9A880952BDCFD9300E7F875 /* DashView.swift */,
+				D9E47FA72BB95DC2004315DA /* SettingsView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		D99B04722BB1A3A7007160B8 /* strom */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D99B04972BB1A3A9007160B8 /* Build configuration list for PBXNativeTarget "strom" */;
+			buildPhases = (
+				D99B046F2BB1A3A7007160B8 /* Sources */,
+				D99B04702BB1A3A7007160B8 /* Frameworks */,
+				D99B04712BB1A3A7007160B8 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = strom;
+			productName = strom;
+			productReference = D99B04732BB1A3A7007160B8 /* strom.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		D99B046B2BB1A3A7007160B8 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1320;
+				LastUpgradeCheck = 1540;
+				TargetAttributes = {
+					D99B04722BB1A3A7007160B8 = {
+						CreatedOnToolsVersion = 13.2.1;
+					};
+				};
+			};
+			buildConfigurationList = D99B046E2BB1A3A7007160B8 /* Build configuration list for PBXProject "strom" */;
+			compatibilityVersion = "Xcode 13.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = D99B046A2BB1A3A7007160B8;
+			productRefGroup = D99B04742BB1A3A7007160B8 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				D99B04722BB1A3A7007160B8 /* strom */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		D99B04712BB1A3A7007160B8 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D99B047B2BB1A3A9007160B8 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		D99B046F2BB1A3A7007160B8 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D9E47FAE2BBC6897004315DA /* BluetoothView.swift in Sources */,
+				D9E47FB02BBC938C004315DA /* BLEController.swift in Sources */,
+				D9E47FA82BB95DC2004315DA /* SettingsView.swift in Sources */,
+				D9A880962BDCFD9300E7F875 /* DashView.swift in Sources */,
+				D99C36602BC5B24C005DF07A /* BMSController.swift in Sources */,
+				D99B04792BB1A3A7007160B8 /* ContentView.swift in Sources */,
+				D9E47FAC2BBC58F2004315DA /* InfoView.swift in Sources */,
+				D99B04772BB1A3A7007160B8 /* stromApp.swift in Sources */,
+				D99B23052BD65AAB005C4D0E /* Model.swift in Sources */,
+				D95B14E32BEA082A002178AF /* DummyBMSController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		D99B04952BB1A3A9007160B8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		D99B04962BB1A3A9007160B8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		D99B04982BB1A3A9007160B8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "";
+				DEVELOPMENT_TEAM = HTXBVB3UB4;
+				ENABLE_PREVIEWS = NO;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = strom/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Strom;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
+				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "Our app uses Bluetooth to connect to external sensors and requires access to Bluetooth to function properly.";
+				INFOPLIST_KEY_NSBluetoothPeripheralUsageDescription = "Our app uses Bluetooth to connect to external sensors even when you're not actively using the app.";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UIRequiresFullScreen = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.lamo.strom;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		D99B04992BB1A3A9007160B8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "";
+				DEVELOPMENT_TEAM = HTXBVB3UB4;
+				ENABLE_PREVIEWS = NO;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = strom/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Strom;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
+				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "Our app uses Bluetooth to connect to external sensors and requires access to Bluetooth to function properly.";
+				INFOPLIST_KEY_NSBluetoothPeripheralUsageDescription = "Our app uses Bluetooth to connect to external sensors even when you're not actively using the app.";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UIRequiresFullScreen = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.lamo.strom;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		D99B046E2BB1A3A7007160B8 /* Build configuration list for PBXProject "strom" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D99B04952BB1A3A9007160B8 /* Debug */,
+				D99B04962BB1A3A9007160B8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D99B04972BB1A3A9007160B8 /* Build configuration list for PBXNativeTarget "strom" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D99B04982BB1A3A9007160B8 /* Debug */,
+				D99B04992BB1A3A9007160B8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = D99B046B2BB1A3A7007160B8 /* Project object */;
+}
