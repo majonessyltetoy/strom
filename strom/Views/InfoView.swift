@@ -111,11 +111,11 @@ struct DetailInfoView: View {
                 Spacer()
                     .frame(height: 20)
                 
-                DetailSectionView(header: "Temperature", content: [
-                    ("Sensor 1", bmsInfo.temp1),
-                    ("Sensor 2", bmsInfo.temp2),
-                    ("Sensor 3", bmsInfo.temp3)
-                ])
+                DetailSectionView(header: "Temperature", content:
+                    bmsInfo.getTemps().enumerated().map { (index, temp) in
+                        ("Sensor \(index + 1)", temp)
+                    }
+                )
             }
         } else {
             ProgressView()
@@ -204,6 +204,13 @@ struct CellMinMaxView: View {
                     .foregroundStyle(.orange)
                     .fontWeight(.semibold)
             }
+            HStack {
+                Text("Difference:")
+                Spacer()
+                Text("\((bmsCellVolts.highValue - bmsCellVolts.lowValue).formatted(.number.grouping(.never))) mV")
+                    .foregroundStyle(.gray)
+                    .fontWeight(.semibold)
+            }
         }
         .fixedSize()
         .padding()
@@ -227,6 +234,7 @@ struct CellGridView: View {
                 VStack {
                     Text("Cell \(index + 1)")
                     Text("\(bmsCellVolts.cellVoltages[index].formatted(.number.grouping(.never))) mV")
+                        .font(.footnote)
                 }
                 .padding()
                 .fixedSize()

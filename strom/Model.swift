@@ -9,6 +9,19 @@ struct DiscoveredPeripheral: Identifiable {
     }
 }
 
+struct BMSLegacyInfo1: Equatable {
+    let voltage: Int16
+    let current: Int16
+    let fullCharge: Int16
+    let remainingCharge: Int16
+    let percentage: Int
+}
+
+struct BMSLegacyInfo2: Equatable {
+    let factoryCapacity: Int16
+    let temperatures: [Double]
+}
+
 struct BMSInfo: Equatable {
     let voltage: Int32
     let current: Int32
@@ -16,15 +29,23 @@ struct BMSInfo: Equatable {
     let remainingCharge: Int32
     let fullCharge: Int32
     let factoryCapacity: Int32
-    let temp1: String
-    let temp2: String
-    let temp3: String
+    let temperatures: [Double]
     
     static let formatter: NumberFormatter = {
         let formatter = NumberFormatter()
         formatter.paddingCharacter = " "
         formatter.maximumFractionDigits = 0
         formatter.formatWidth = 4
+        return formatter
+    }()
+    
+    static let tempFormatter: MeasurementFormatter = {
+        let formatter = MeasurementFormatter()
+        formatter.unitStyle = .medium
+        formatter.unitOptions = .providedUnit
+        formatter.numberFormatter.minimumFractionDigits = 2
+        formatter.numberFormatter.maximumFractionDigits = 2
+        formatter.numberFormatter.decimalSeparator = "."
         return formatter
     }()
     
@@ -68,20 +89,39 @@ struct BMSInfo: Equatable {
         let minutes = Int((difference - Double(hours)) * 60)
         
         return String(format: "%dh %dm", abs(hours), abs(minutes))
-//        return String(difference)
-        //return BMSInfo.formatter.string(for: difference) ?? "-"
+    }
+    
+    func getTemps() -> [String] {
+        let userTempUnit = UserDefaults.standard.string(forKey: "temperatureUnit")
+        let getTempUnit: UnitTemperature
+        if userTempUnit == UnitTemperature.fahrenheit.symbol {
+            getTempUnit = UnitTemperature.fahrenheit
+        } else {
+            getTempUnit = UnitTemperature.celsius
+        }
+        return temperatures.map { kelvin in
+            let kelvinMeasurement = Measurement(value: kelvin, unit: UnitTemperature.kelvin)
+            let outputMeasurement = kelvinMeasurement.converted(to: getTempUnit)
+            return BMSInfo.tempFormatter.string(from: outputMeasurement)
+        }
     }
 }
 
 struct BMSCellVolts: Equatable {
-    let highValue: Int
-    let lowValue: Int
     let cellVoltages: [Int]
+    var highValue: Int {
+        return cellVoltages.max() ?? 0
+    }
+    var lowValue: Int {
+        return cellVoltages.min() ?? 0
+    }
 }
 
 enum OpCode: UInt8 {
     case unlockAccepted = 0x32
     case unlockRejected = 0x33
+    case legacyInfo1 = 0x60
+    case legacyInfo2 = 0x61
     case cellVolt = 0x62
     case unlock = 0x64
     case unlocked = 0x65

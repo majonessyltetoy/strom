@@ -9,7 +9,10 @@ class BMSController: ObservableObject {
     private var dataBuffer = Data()
     private var cmdTimer: DispatchSourceTimer?
     private var cmdIndex = 0
-    private let commands: [OpCode] = [.getInfo, .cellVolt]
+    private var commands: [OpCode] = [.getInfo, .cellVolt]
+    private var isLegacy = false
+    private var bmsLegacyInfo1: BMSLegacyInfo1?
+    private var bmsLegacyInfo2: BMSLegacyInfo2?
     
     @Published var deviceName: String
     @Published var bmsInfo: BMSInfo?
@@ -24,10 +27,13 @@ class BMSController: ObservableObject {
         self.deviceName = deviceName
         if isDummy {
             bleController.bmsDidConnect()
+            Logger.shared.log("Dummy enabled")
         } else {
             if !sendUnlock() {
+                Logger.shared.log("Failed to unlock")
                 bleController.disconnectPeripheral()
             }
+            Logger.shared.log("Unlock sent")
         }
     }
     
@@ -64,7 +70,6 @@ class BMSController: ObservableObject {
         return true
     }
     
-    // We could use async await instead of timer and schedule
     func startSendingCommands() {
         let queue = DispatchQueue(label: (Bundle.main.bundleIdentifier ?? "app") + ".timer")
         cmdTimer = DispatchSource.makeTimerSource(queue: queue)
@@ -138,6 +143,7 @@ class BMSController: ObservableObject {
             let checksum = Int(checkData[0]) << 8 | Int(checkData[1])
             dataBuffer = dataBuffer.subdata(in: 0..<dataBuffer.count-2)
             if checksum != dataBuffer.reduce(0, { $0 + UInt($1) }) + 8 {
+                Logger.shared.log("Checksum failed")
                 errorSignal = !errorSignal
                 return
             }
@@ -150,11 +156,14 @@ class BMSController: ObservableObject {
         let opCode = OpCode(rawValue: data[0])
         switch opCode {
         case .unlockAccepted, .unlock, .unlocked:
+            Logger.shared.log("Received unlock")
             bleController.bmsDidConnect()
             startSendingCommands()
         case .unlockRejected:
+            Logger.shared.log("Received unlock rejected")
             bleController.disconnectPeripheral()
         case .getInfo:
+            Logger.shared.log("Received get info")
             let voltage = bytesToInt32(data, startingAt: 3)
             let current = bytesToInt32(data, startingAt: 7)
             let percentage = Int(data[15])
@@ -170,65 +179,83 @@ class BMSController: ObservableObject {
                               remainingCharge: remainingCharge,
                               fullCharge: fullCharge,
                               factoryCapacity: factoryCapacity,
-                              temp1: temp1,
-                              temp2: temp2,
-                              temp3: temp3)
+                              temperatures: [temp1, temp2, temp3])
         case .cellVolt:
+            Logger.shared.log("Received cell volt")
             let numberOfCells = Int(data[3])
             var cellVoltages: [Int] = []
-            var highValue = Int.min
-            var lowValue = Int.max
             for i in 0..<numberOfCells {
                 let index = (i * 2) + 4
                 let voltageValue = (Int(data[index]) << 8) | Int(data[index + 1])
-                if voltageValue < lowValue {
-                    lowValue = voltageValue
-                }
-                if voltageValue > highValue {
-                    highValue = voltageValue
-                }
                 cellVoltages.append(voltageValue)
             }
-            bmsCellVolts = BMSCellVolts(highValue: highValue,
-                                        lowValue: lowValue,
-                                        cellVoltages: cellVoltages)
+            bmsCellVolts = BMSCellVolts(cellVoltages: cellVoltages)
+        case .legacyInfo1:
+            Logger.shared.log("Received legacy info 1")
+            let voltage = bytesToInt16(data, startingAt: 3)
+            let current = bytesToInt16(data, startingAt: 5)
+            let fullCharge = bytesToInt16(data, startingAt: 7)
+            let remainingCharge = bytesToInt16(data, startingAt: 9)
+            let percentage = Int(data[11])
+            bmsLegacyInfo1 = BMSLegacyInfo1(voltage: voltage,
+                                            current: current,
+                                            fullCharge: fullCharge,
+                                            remainingCharge: remainingCharge,
+                                            percentage: percentage)
+            if let l1 = bmsLegacyInfo1, let l2 = bmsLegacyInfo2 {
+                bmsInfo = BMSInfo(voltage: Int32(l1.voltage),
+                                  current: Int32(l1.current),
+                                  percentage: l1.percentage,
+                                  remainingCharge: Int32(l1.remainingCharge),
+                                  fullCharge: Int32(l1.fullCharge),
+                                  factoryCapacity: Int32(l2.factoryCapacity),
+                                  temperatures: l2.temperatures)
+                bmsLegacyInfo1 = nil
+                bmsLegacyInfo2 = nil
+            }
+        case .legacyInfo2:
+            Logger.shared.log("Received legacy info 2")
+            let factoryCapacity = bytesToInt16(data, startingAt: 7)
+            let temp1 = bytesToTemp(data, startingAt: 9)
+            bmsLegacyInfo2 = BMSLegacyInfo2(factoryCapacity: factoryCapacity,
+                                            temperatures: [temp1])
+            if let l1 = bmsLegacyInfo1, let l2 = bmsLegacyInfo2 {
+                bmsInfo = BMSInfo(voltage: Int32(l1.voltage),
+                                  current: Int32(l1.current),
+                                  percentage: l1.percentage,
+                                  remainingCharge: Int32(l1.remainingCharge),
+                                  fullCharge: Int32(l1.fullCharge),
+                                  factoryCapacity: Int32(l2.factoryCapacity),
+                                  temperatures: l2.temperatures)
+                bmsLegacyInfo1 = nil
+                bmsLegacyInfo2 = nil
+            }
         case .none:
-            bleController.disconnectPeripheral()
+            Logger.shared.log("Received unkown")
+            if !isLegacy {
+                Logger.shared.log("Attempting legacy support")
+                commands.remove(at: 0)
+                commands.append(contentsOf: [.legacyInfo1, .legacyInfo2])
+                isLegacy = true
+            } else {
+                bleController.disconnectPeripheral()
+            }
         }
+    }
+    
+    private func bytesToInt16(_ data: Data, startingAt index: Int) -> Int16 {
+        return Int16(data[index + 0]) << 8 | Int16(data[index + 1])
     }
     
     private func bytesToInt32(_ data: Data, startingAt index: Int) -> Int32 {
-        let result = Int32(data[index + 0]) << 24 |
-                     Int32(data[index + 1]) << 16 |
-                     Int32(data[index + 2]) << 8 |
-                     Int32(data[index + 3])
-        return result
+        return Int32(data[index + 0]) << 24 |
+               Int32(data[index + 1]) << 16 |
+               Int32(data[index + 2]) << 8 |
+               Int32(data[index + 3])
     }
     
-    private func bytesToTemp(_ data: Data, startingAt index: Int) -> String {
+    private func bytesToTemp(_ data: Data, startingAt index: Int) -> Double {
         let value = Int(data[index]) << 8 | Int(data[index + 1])
-        let tempInKelvin = Double(value) / 10.0
-        
-        let userTempUnit = UserDefaults.standard.string(forKey: "temperatureUnit")
-        
-        if userTempUnit == UnitTemperature.fahrenheit.symbol {
-            return formatTemperature(tempInKelvin, to: .fahrenheit)
-        } else {
-            return formatTemperature(tempInKelvin, to: .celsius)
-        }
-    }
-    
-    private func formatTemperature(_ kelvin: Double, to outputUnit: UnitTemperature) -> String {
-        let kelvinMeasurement = Measurement(value: kelvin, unit: UnitTemperature.kelvin)
-        let outputMeasurement = kelvinMeasurement.converted(to: outputUnit)
-        
-        let formatter = MeasurementFormatter()
-        formatter.unitStyle = .medium
-        formatter.unitOptions = .providedUnit
-        formatter.numberFormatter.minimumFractionDigits = 2
-        formatter.numberFormatter.maximumFractionDigits = 2
-        formatter.numberFormatter.decimalSeparator = "."
-
-        return formatter.string(from: outputMeasurement)
+        return Double(value) / 10.0
     }
 }

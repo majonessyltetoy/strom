@@ -41,6 +41,7 @@ class BLEController: NSObject, ObservableObject, CBCentralManagerDelegate, CBPer
             } else {
                 let newPeripheral = DiscoveredPeripheral(peripheral: peripheral, latestRSSI: rssi)
                 discoveredPeripherals.append(newPeripheral)
+                Logger.shared.log("new peripheral " + (peripheral.name ?? ""))
             }
         }
     }
@@ -83,6 +84,7 @@ class BLEController: NSObject, ObservableObject, CBCentralManagerDelegate, CBPer
         }
         centralManager.scanForPeripherals(withServices: nil, options: nil)
         isScanning = true
+        Logger.shared.log("Started scanning")
     }
     
     func stopScanning() {
@@ -92,6 +94,7 @@ class BLEController: NSObject, ObservableObject, CBCentralManagerDelegate, CBPer
         batchThrottler.clean()
         stopMonitoringRSSI()
         isScanning = false
+        Logger.shared.log("Stop scanning")
     }
     
     func connect(to peripheral: CBPeripheral) {
@@ -107,6 +110,7 @@ class BLEController: NSObject, ObservableObject, CBCentralManagerDelegate, CBPer
         connectingPeripheral = peripheral
         centralManager.connect(peripheral, options: nil)
         startConnectionTimeout(for: peripheral)
+        Logger.shared.log("Connect to " + (peripheral.name ?? ""))
     }
     
     private func startConnectionTimeout(for peripheral: CBPeripheral) {
@@ -118,9 +122,11 @@ class BLEController: NSObject, ObservableObject, CBCentralManagerDelegate, CBPer
 //                attemptingReconnect = false
                 connectingPeripheral = nil
                 self.centralManager.cancelPeripheralConnection(peripheral)
+                Logger.shared.log("Cancel connection, timeout")
             } else if !isConnected {
                 // Connected, but BMS neither accepted or refused unlock
                 disconnectPeripheral()
+                Logger.shared.log("Disconnect connection, timeout")
             }
         }
         connectionTimeout?.cancel()
@@ -142,6 +148,7 @@ class BLEController: NSObject, ObservableObject, CBCentralManagerDelegate, CBPer
             centralManager.cancelPeripheralConnection(peripheral)
         }
         connectedPeripheral = nil
+        Logger.shared.log("Disconnected from " + (peripheral.name ?? ""))
     }
     
     func bmsDidConnect() {
@@ -149,6 +156,7 @@ class BLEController: NSObject, ObservableObject, CBCentralManagerDelegate, CBPer
         isConnected = true
         connectionTimeout?.cancel()
         UserDefaults.standard.setValue(connectedPeripheral?.name ?? "", forKey: "lastBMSConnection")
+        Logger.shared.log("BMS unlocked " + (connectedPeripheral?.name ?? ""))
     }
     
     func sendData(_ data: Data) {
@@ -167,6 +175,7 @@ class BLEController: NSObject, ObservableObject, CBCentralManagerDelegate, CBPer
             return
         }
         peripheral.writeValue(data, for: characteristic, type: .withResponse)
+        Logger.shared.log((peripheral.name ?? "") + " tx ", data: data)
     }
 
     func centralManagerDidUpdateState(_ central: CBCentralManager) {
@@ -193,9 +202,15 @@ class BLEController: NSObject, ObservableObject, CBCentralManagerDelegate, CBPer
     
     func peripheral(_ peripheral: CBPeripheral, didDiscoverServices error: Error?) {
         guard let services = peripheral.services else {
+            Logger.shared.log("No services in " + (peripheral.name ?? ""))
             disconnectPeripheral()
             return
         }
+        Logger.shared.log("Found service:")
+        for service in services {
+            Logger.shared.log(service.uuid.uuidString)
+        }
+        Logger.shared.log("End service")
         if let service = services.first(where: {$0.uuid == bmsServiceUUID}) {
             peripheral.discoverCharacteristics(nil, for: service)
         } else {
@@ -208,18 +223,25 @@ class BLEController: NSObject, ObservableObject, CBCentralManagerDelegate, CBPer
             disconnectPeripheral()
             return
         }
-        
+        Logger.shared.log("In service: " + service.uuid.uuidString + " found characteristic:")
         for characteristic in characteristics {
+            Logger.shared.log(characteristic.uuid.uuidString)
             if characteristic.properties.contains(.notify) {
+                Logger.shared.log("contains notify")
                 peripheral.setNotifyValue(true, for: characteristic)
+            }
+            if characteristic.properties.contains(.write) {
+                Logger.shared.log("contains write")
             }
             if characteristic.uuid == writeCharacteristicUUID {
                 writeCharacteristic = characteristic
             }
         }
+        Logger.shared.log("End characteristic")
         if writeCharacteristic != nil {
             bmsController = BMSController(bleController: self, deviceName: peripheral.name ?? "", isDummy: false)
         } else {
+            Logger.shared.log("No write characteristic found")
             disconnectPeripheral()
         }
     }
@@ -243,6 +265,7 @@ class BLEController: NSObject, ObservableObject, CBCentralManagerDelegate, CBPer
         connectedPeripheral = peripheral
         peripheral.delegate = self
         peripheral.discoverServices(nil)
+        Logger.shared.log("BT connect: " + (peripheral.name ?? ""))
     }
     
     func centralManager(_ central: CBCentralManager, didDisconnectPeripheral peripheral: CBPeripheral, error: Error?) {
@@ -281,6 +304,8 @@ class BLEController: NSObject, ObservableObject, CBCentralManagerDelegate, CBPer
         guard let data = characteristic.value else {
             return
         }
+        
+        Logger.shared.log((peripheral.name ?? "") + " rx ", data: data)
         
         if let bmsController = bmsController {
             bmsController.receivedData(data)

@@ -14,6 +14,8 @@
 		D99B23052BD65AAB005C4D0E /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = D99B23042BD65AAB005C4D0E /* Model.swift */; };
 		D99C36602BC5B24C005DF07A /* BMSController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D99C365F2BC5B24C005DF07A /* BMSController.swift */; };
 		D9A880962BDCFD9300E7F875 /* DashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A880952BDCFD9300E7F875 /* DashView.swift */; };
+		D9B6CCB62C57BE49008591DE /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9B6CCB52C57BE49008591DE /* Logger.swift */; };
+		D9B6CCBA2C63982D008591DE /* DefaultSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9B6CCB92C63982D008591DE /* DefaultSettings.swift */; };
 		D9E47FA82BB95DC2004315DA /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9E47FA72BB95DC2004315DA /* SettingsView.swift */; };
 		D9E47FAC2BBC58F2004315DA /* InfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9E47FAB2BBC58F2004315DA /* InfoView.swift */; };
 		D9E47FAE2BBC6897004315DA /* BluetoothView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9E47FAD2BBC6897004315DA /* BluetoothView.swift */; };
@@ -30,6 +32,8 @@
 		D99B23042BD65AAB005C4D0E /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 		D99C365F2BC5B24C005DF07A /* BMSController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BMSController.swift; sourceTree = "<group>"; };
 		D9A880952BDCFD9300E7F875 /* DashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashView.swift; sourceTree = "<group>"; };
+		D9B6CCB52C57BE49008591DE /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
+		D9B6CCB92C63982D008591DE /* DefaultSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultSettings.swift; sourceTree = "<group>"; };
 		D9E47FA72BB95DC2004315DA /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		D9E47FAB2BBC58F2004315DA /* InfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoView.swift; sourceTree = "<group>"; };
 		D9E47FAD2BBC6897004315DA /* BluetoothView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothView.swift; sourceTree = "<group>"; };
@@ -72,6 +76,8 @@
 				D99C365F2BC5B24C005DF07A /* BMSController.swift */,
 				D95B14E22BEA082A002178AF /* DummyBMSController.swift */,
 				D99B23042BD65AAB005C4D0E /* Model.swift */,
+				D9B6CCB92C63982D008591DE /* DefaultSettings.swift */,
+				D9B6CCB52C57BE49008591DE /* Logger.swift */,
 				D9A8809C2BE2304300E7F875 /* Views */,
 				D99B047A2BB1A3A9007160B8 /* Assets.xcassets */,
 			);
@@ -160,6 +166,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				D9E47FAE2BBC6897004315DA /* BluetoothView.swift in Sources */,
+				D9B6CCB62C57BE49008591DE /* Logger.swift in Sources */,
+				D9B6CCBA2C63982D008591DE /* DefaultSettings.swift in Sources */,
 				D9E47FB02BBC938C004315DA /* BLEController.swift in Sources */,
 				D9E47FA82BB95DC2004315DA /* SettingsView.swift in Sources */,
 				D9A880962BDCFD9300E7F875 /* DashView.swift in Sources */,
@@ -322,7 +330,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.lamo.strom;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -358,7 +366,8 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.2;
+				OTHER_SWIFT_FLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = com.lamo.strom;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
