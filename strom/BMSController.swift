@@ -28,6 +28,10 @@ class BMSController: ObservableObject {
         if isDummy {
             bleController.bmsDidConnect()
             Logger.shared.log("Dummy enabled")
+        } else if deviceName.hasPrefix("TBA-") {
+            Logger.shared.log("TBA- device connected")
+            bleController.bmsDidConnect()
+            startSendingCommands()
         } else {
             if !sendUnlock() {
                 Logger.shared.log("Failed to unlock")

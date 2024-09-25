@@ -193,7 +193,7 @@ class BLEController: NSObject, ObservableObject, CBCentralManagerDelegate, CBPer
             connect(to: peripheral)
         }
         
-        if defaults.bool(forKey: "filterDevicePrefix") && !deviceName.hasPrefix("DXB-") {
+        if defaults.bool(forKey: "filterDevicePrefix") && !(deviceName.hasPrefix("DXB-") || deviceName.hasPrefix("TBA-")) {
             return
         }
         
