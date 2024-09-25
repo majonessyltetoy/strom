@@ -9,7 +9,6 @@ class BLEController: NSObject, ObservableObject, CBCentralManagerDelegate, CBPer
     private var rssiTimer: Timer?
     private var connectionTimeout: DispatchWorkItem?
     private var firstConnect = true
-//    private var attemptingReconnect = false
     @Published var bmsController: BMSController?
     @Published var discoveredPeripherals: [DiscoveredPeripheral] = []
     @Published var connectingPeripheral: CBPeripheral?
@@ -106,7 +105,6 @@ class BLEController: NSObject, ObservableObject, CBCentralManagerDelegate, CBPer
         }
         firstConnect = false
         isConnecting = true
-//        attemptingReconnect = false
         connectingPeripheral = peripheral
         centralManager.connect(peripheral, options: nil)
         startConnectionTimeout(for: peripheral)
@@ -119,7 +117,6 @@ class BLEController: NSObject, ObservableObject, CBCentralManagerDelegate, CBPer
             if peripheral.state != .connected {
                 // Connection attempt timed out. Cancelling attempt.
                 isConnecting = false
-//                attemptingReconnect = false
                 connectingPeripheral = nil
                 self.centralManager.cancelPeripheralConnection(peripheral)
                 Logger.shared.log("Cancel connection, timeout")
@@ -138,7 +135,6 @@ class BLEController: NSObject, ObservableObject, CBCentralManagerDelegate, CBPer
         UserDefaults.standard.setValue(false, forKey: "simulateBMS")
         isConnecting = false
         isConnected = false
-//        attemptingReconnect = false
         bmsController = nil
         connectionTimeout?.cancel()
         guard let peripheral = connectedPeripheral else {
@@ -167,10 +163,6 @@ class BLEController: NSObject, ObservableObject, CBCentralManagerDelegate, CBPer
             return
         }
         if peripheral.state != .connected {
-//            if attemptingReconnect {
-//                print("RECONNECTING not sending command")
-//                return
-//            }
             disconnectPeripheral()
             return
         }
@@ -247,19 +239,6 @@ class BLEController: NSObject, ObservableObject, CBCentralManagerDelegate, CBPer
     }
     
     func centralManager(_ central: CBCentralManager, didConnect peripheral: CBPeripheral) {
-//        if attemptingReconnect {
-//            attemptingReconnect = false
-//            guard let bmsController = bmsController else {
-//                disconnectPeripheral()
-//                return
-//            }
-//            
-//            if !bmsController.sendUnlock() {
-//                print("failed unlock")
-//                disconnectPeripheral()
-//            }
-//            return
-//        }
         connectingPeripheral = nil
         writeCharacteristic = nil
         connectedPeripheral = peripheral
@@ -270,15 +249,6 @@ class BLEController: NSObject, ObservableObject, CBCentralManagerDelegate, CBPer
     
     func centralManager(_ central: CBCentralManager, didDisconnectPeripheral peripheral: CBPeripheral, error: Error?) {
         if connectedPeripheral == peripheral {
-//            if let bmsController = self.bmsController, error != nil && isConnected {
-//                // attempt a quick reconnect
-//                print("attempting reconnect")
-//                attemptingReconnect = true
-//                bmsController.stopSendingCommands()
-//                centralManager.connect(peripheral, options: nil)
-//                startConnectionTimeout(for: peripheral)
-//                return
-//            }
             disconnectPeripheral()
         }
     }
